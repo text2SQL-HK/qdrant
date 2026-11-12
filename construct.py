@@ -10,14 +10,14 @@ import csv
 import requests
 
 date = "1223"
-RERANK_URL = "http://127.0.0.1:8002/rerank"
-TABLE_JSON_PATH = f"/tmp/workspace/LLM_project/output/tables{date}.json"
-METADATA_DB_PATH = "/tmp/workspace/qdrant/metadata.sqlite"
+RERANK_URL = os.environ.get("RERANK_URL", "http://localhost:8002/rerank")
+TABLE_JSON_PATH = os.environ.get("TABLES_JSON_PATH") or "data/tables.json"
+METADATA_DB_PATH = os.environ.get("METADATA_DB_PATH") or "data/metadata.sqlite"
 
 openai_client = OpenAI(
-    base_url="http://127.0.0.1:8001/v1", api_key="dummy"
+    base_url=os.environ.get("EMBEDDING_BASE_URL", "http://localhost:8001/v1"), api_key=os.environ.get("EMBEDDING_API_KEY") or "EMPTY"
 )
-output_path = "embed.json"
+output_path = os.environ.get("EMBED_OUTPUT_PATH") or "data/embed.json"
 
 COLUMN_COLLECTION_NAME = "column_collection"
 TABLE_COLLECTION_NAME = "table_collection"

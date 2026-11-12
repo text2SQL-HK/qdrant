@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 
 import argparse
 import json
@@ -6,9 +7,9 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Iterable, List, Tuple
 
-DEFAULT_TABLES_JSON = Path("/tmp/workspace/LLM_project/output/tables1223.json")
-DEFAULT_EMBED_JSON = Path("/tmp/workspace/property_graph/embed.json")
-DEFAULT_DB_PATH = Path("/tmp/workspace/qdrant/metadata.sqlite")
+DEFAULT_TABLES_JSON = Path(os.environ.get("TABLES_JSON_PATH") or "data/tables.json")
+DEFAULT_EMBED_JSON = Path(os.environ.get("EMBED_OUTPUT_PATH") or "data/embed.json")
+DEFAULT_DB_PATH = Path(os.environ.get("METADATA_DB_PATH") or "data/metadata.sqlite")
 
 
 def _load_tables_json(path: Path, db_id: str | None) -> dict:
